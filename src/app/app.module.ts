@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -9,7 +10,7 @@ import { RegisterComponent } from './login/register.component';
 import { PagesModule } from './pages/pages.module';
 
 // Servicios
-import { SettingsService } from './services/settings.service';
+import { ServicesModule } from './services/services.module';
 
 @NgModule({
   declarations: [
@@ -21,8 +22,10 @@ import { SettingsService } from './services/settings.service';
     BrowserModule,
     RouterModule.forRoot(appRoutes, { useHash: true }),
     PagesModule,
+    ServicesModule,
+    FormsModule
   ],
-  providers: [SettingsService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
