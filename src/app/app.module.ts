@@ -8,6 +8,9 @@ import { appRoutes } from './app.routes';
 import { RegisterComponent } from './login/register.component';
 import { PagesModule } from './pages/pages.module';
 
+// Servicios
+import { SettingsService } from './services/settings.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +22,7 @@ import { PagesModule } from './pages/pages.module';
     RouterModule.forRoot(appRoutes, { useHash: true }),
     PagesModule,
   ],
-  providers: [],
+  providers: [SettingsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

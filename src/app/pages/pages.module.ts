@@ -13,6 +13,7 @@ import { PAGE_ROUTES } from './pages.route';
 // import { AppModule } from '../app.module';
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
 import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.co
         DashboardComponent,
         Graficas1Component,
         IncrementadorComponent,
-        GraficoDonaComponent
+        GraficoDonaComponent,
+        AccountSettingsComponent
     ],
     exports: [
         PagesComponent,
