@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
 import { map } from 'rxjs/operators';
 import swal from 'sweetalert';
@@ -91,6 +91,17 @@ export class UsuarioService {
     }
     this.usuario = usuario;
     this.token = token;
+  }
+
+  actualizarUsuario(usuario: Usuario) {
+    return this.http.put(this.URL_USUARIO + '/' + usuario._id + '?token=' + this.token, usuario)
+      .pipe(
+        map((res: any) => {
+          this.guardarDatosLogin(res.usuario._id, this.token, res.usuario, localStorage.getItem('email') !== undefined);
+          swal('Importante', 'usuario actualizado correctamente', 'success');
+          return res;
+        })
+      );
   }
 
 }
