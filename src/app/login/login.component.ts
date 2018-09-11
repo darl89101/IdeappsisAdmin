@@ -26,11 +26,11 @@ tokenC: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7InJvbGUiO
 
   constructor(private _router: Router,
     private _service: UsuarioService) {
-      this.googleInit();
     }
 
   ngOnInit() {
     init_plugins();
+    this.googleInit();
 
     this.correo = localStorage.getItem('email') || '';
     if (this.correo.length > 0) {
@@ -39,7 +39,6 @@ tokenC: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7InJvbGUiO
   }
 
   googleInit() {
-    console.log('googleInit');
     gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init({
         client_id: '26873964219-9184f8pvobn3rd862c1q98g4nq5r4ogm.apps.googleusercontent.com',
@@ -56,9 +55,9 @@ tokenC: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7InJvbGUiO
 
       // let profile = googleUser.getBasicProfile();
       let token = googleUser.getAuthResponse().id_token;
-      this._service.googleLogin(token)
-        .subscribe(() => this._router.navigate(['/']));
-      // this._service.googleLogin(token).subscribe(() => window.location.href = '#/');
+      // this._service.googleLogin(token)
+      //   .subscribe(() => this._router.navigate(['/']));
+      this._service.googleLogin(token).subscribe(() => window.location.href = '#/dashboard');
 
     });
   }
