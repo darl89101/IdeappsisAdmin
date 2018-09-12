@@ -75,7 +75,6 @@ export class UsuarioService {
     return this.http.post(URL_SERVICIOS + '/login/google', { token })
       .pipe(
         map((res: any) => {
-          console.log(res);
           this.guardarDatosLogin(res.id, res.token, res.usuario);
           return true;
         })
@@ -109,7 +108,6 @@ export class UsuarioService {
   cambiarImagen(archivo: File, id: string) {
     this._subirArchivoService.subirArchivo(archivo, 'usuarios', id)
       .then((res: any) => {
-        console.log(res);
         this.usuario.img = res.usuario.img;
         this.guardarDatosLogin(id, this.token, this.usuario, localStorage.getItem('email') !== undefined);
         swal('Imagen actualizada', this.usuario.nombre, 'success');
