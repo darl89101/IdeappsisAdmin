@@ -21,6 +21,9 @@ export class UsuarioService {
   }
 
   isAuthenticated(): boolean {
+    if (!this.token) {
+      this.loadStorage(); // esto es porque pasa algo raro con el login por google
+    }
     return (this.token.length > 5);
   }
 
@@ -98,7 +101,9 @@ export class UsuarioService {
     return this.http.put(this.URL_USUARIO + '/' + usuario._id + '?token=' + this.token, usuario)
       .pipe(
         map((res: any) => {
-          this.guardarDatosLogin(res.usuario._id, this.token, res.usuario, localStorage.getItem('email') !== undefined);
+          if (usuario._id === this.usuario._id) {
+            this.guardarDatosLogin(res.usuario._id, this.token, res.usuario, localStorage.getItem('email') !== undefined);
+          }
           swal('Importante', 'usuario actualizado correctamente', 'success');
           return res;
         })
@@ -115,6 +120,23 @@ export class UsuarioService {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  cargarUsuarios(desde: number = 0) {
+    return this.http.get(this.URL_USUARIO + `?desde=${desde}`);
+  }
+
+  buscarUsuarios(termino: string) {
+    return this.http.get(URL_SERVICIOS + `/busqueda/coleccion/usuarios/${termino}`);
+  }
+
+  eliminarUsuario(id: string) {
+    return this.http.delete(this.URL_USUARIO + `/${id}?token=${this.token}`)
+    .pipe(
+      map(
+        res => swal('Correcto', `El usuario ha sido eliminado`, 'success')
+      )
+    );
   }
 
 }
