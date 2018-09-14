@@ -45,7 +45,7 @@
                     <tbody>
                         <tr *ngFor="let hospital of hospitales">
                             <td class="w70">
-                                <img [src]="hospital.img | imagen:'hospital'" class="w50 img-circle pointer" alt="" (click)="mostrarModal(hospital)">
+                                <img [src]="hospital.img | imagen:'hospital'" class="w50 pointer" alt="" (click)="mostrarModal(hospital)">
                             </td>
                             <td>
                                 <input [(ngModel)]="hospital.nombre" type="text" name="nombre" class="form-control">

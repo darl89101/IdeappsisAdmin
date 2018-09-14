@@ -20,6 +20,13 @@ export class HospitalService {
     return this.http.get(this.URL_HOSPITALES + `?desde=${desde}`);
   }
 
+  consultarHospital(id: string) {
+    return this.http.get(this.URL_HOSPITALES + `/${id}`)
+      .pipe(
+        map((res: any) => res.hospital)
+      );
+  }
+
   obtenerHospital(id: string) {
     return this.http.get(this.URL_HOSPITALES + `/${id}`);
   }

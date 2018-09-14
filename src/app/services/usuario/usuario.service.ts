@@ -21,7 +21,7 @@ export class UsuarioService {
   }
 
   isAuthenticated(): boolean {
-    if (!this.token) {
+    if (!this.token || this.token === '') {
       this.loadStorage(); // esto es porque pasa algo raro con el login por google
     }
     return (this.token.length > 5);

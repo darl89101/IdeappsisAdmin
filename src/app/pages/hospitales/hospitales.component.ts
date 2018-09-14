@@ -4,6 +4,8 @@ import { HospitalService } from '../../services/service.index';
 import { ModalHospitalService } from '../../components/modal-hospital/modal-hospital.service';
 import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
 
+declare var swal: any;
+
 @Component({
   selector: 'app-hospitales',
   templateUrl: './hospitales.component.html',
@@ -82,7 +84,35 @@ export class HospitalesComponent implements OnInit {
   }
 
   AbrirModalHospital() {
-    this.modalHospitalService.abrirModal();
+
+    swal({
+      title: 'Crear hospital',
+      text: 'Ingrese el nombre del hospital',
+      content: 'input',
+      icon: 'info',
+      dangerMode: true,
+      button: {
+        text: 'Guardar',
+        closeModal: false,
+      },
+    })
+    .then(name => {
+      if (!name || name.length === 0) {
+        return;
+      }
+      this.servicioHospitales.crearHospital(new Hospital(name))
+        .subscribe(() => this.cargarHospitales());
+    })
+    .catch(err => {
+      if (err) {
+        swal('Oh noes!', 'The AJAX request failed!', 'error');
+      } else {
+        swal.stopLoading();
+        swal.close();
+      }
+    });
+
+    // this.modalHospitalService.abrirModal();
   }
 
   cambiarDesde(incremento: number) {
