@@ -60,7 +60,14 @@ export class ModalUploadComponent implements OnInit {
   }
 
   cambiarImagen() {
-    // this.usuarioService.cambiarImagen(this.imagenSubir, this.usuario._id);
+    this.subirArchivoService.subirArchivo(this.imagenSubir, this.modalUploadService.tipo, this.modalUploadService.id)
+    .then(res => {
+      this.modalUploadService.notificacion.emit(res);
+      this.cerrarModal();
+    })
+    .catch(err => {
+      console.log('error en la carga de la imagen');
+    });
   }
 
 }
