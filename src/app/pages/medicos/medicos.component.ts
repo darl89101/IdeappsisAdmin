@@ -29,6 +29,7 @@ export class MedicosComponent implements OnInit {
           this.medicos = res.medicos;
           this.loading = false;
           this.totalRegistros = res.total;
+          console.log(res);
         }
       );
   }

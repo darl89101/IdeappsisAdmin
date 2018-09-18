@@ -9,7 +9,8 @@ import {
   LoginGuardGuard,
   SubirArchivoService,
   HospitalService,
-  MedicoService
+  MedicoService,
+  AdminGuard
 } from './service.index';
 import { ModalUploadService } from '../components/modal-upload/modal-upload.service';
 import { ModalHospitalService } from '../components/modal-hospital/modal-hospital.service';
@@ -25,12 +26,14 @@ import { ModalHospitalService } from '../components/modal-hospital/modal-hospita
     SharedService,
     SidebarService,
     UsuarioService,
-    LoginGuardGuard,
     SubirArchivoService,
     ModalUploadService,
     HospitalService,
     ModalHospitalService,
-    MedicoService
+    MedicoService,
+
+    LoginGuardGuard,
+    AdminGuard
   ]
 })
 export class ServicesModule { }
