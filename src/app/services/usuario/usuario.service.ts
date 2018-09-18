@@ -23,6 +23,23 @@ export class UsuarioService {
     this.loadStorage();
   }
 
+  renuevaToken() {
+    return this.http.get(URL_SERVICIOS + `/login/renuevaToken?token=${this.token}`)
+      .pipe(
+        map((res: any) => {
+          this.token = res.token;
+          localStorage.setItem('token', this.token);
+          console.log('token actualizado');
+          return true;
+        }),
+        catchError((error: any): Observable<any> => {
+          this.logout();
+          swal('No se pudo renovar el token', 'No fue posible renovar token', 'error');
+          return throwError(error);
+        })
+      );
+  }
+
   isAuthenticated(): boolean {
     if (!this.token || this.token === '') {
       this.loadStorage(); // esto es porque pasa algo raro con el login por google
@@ -69,7 +86,7 @@ export class UsuarioService {
           this.guardarDatosLogin(res.id, res.token, res.usuario, res.menu, recordar);
           return true;
         }),
-        catchError(this.handleError([]))
+        catchError(this.handleError())
         // catchError((err: any) => {
         //   console.log(of(`I caught: ${err}`));
         //   // return of(`I caught: ${err}`);
@@ -78,14 +95,16 @@ export class UsuarioService {
       );
   }
 
-  private handleError<T>(result?: any) {
+  private handleError<T>() {
     return (error: any): Observable<any> => {
       // TODO: send the error to remote logging infrastructure
 
       // console.error('authentication.service.handleError', error); // log to console instead
 
       // Let the app keep running by returning an empty result.
-      return from(result);
+      // return from(result);
+      // return throwError(from(error));
+      return throwError(of(error));
     };
   }
 
